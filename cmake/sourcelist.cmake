@@ -1,0 +1,9 @@
+set(SOURCES
+	src/c++/PCH.h
+	src/c++/Papyrus/Common.h
+	src/c++/Papyrus/ConsoleUtil.h
+	src/c++/Papyrus/Papyrus.cpp
+	src/c++/Papyrus/Papyrus.h
+	src/c++/main.cpp
+	src/papyrus/ConsoleUtil.psc
+)
