@@ -1,21 +1,22 @@
 cmake_minimum_required(VERSION 3.20)
 
-if (NOT DEFINED Fallout4Path AND DEFINED ENV{Fallout4Path})
-	set(Fallout4Path $ENV{Fallout4Path})
-endif ()
-
 # ---- Options ----
 
 option(COPY_BUILD "Copy the build output to the Fallout 4 directory." ON)
 
 # ---- Cache build vars ----
 
-if (NOT DEFINED VCPKG_ROOT AND DEFINED ENV{VCPKG_ROOT})
-	set(VCPKG_ROOT $ENV{VCPKG_ROOT})
-endif ()
+macro(set_from_environment VARIABLE)
+	if (NOT DEFINED ${VARIABLE} AND DEFINED ENV{${VARIABLE}})
+		set(${VARIABLE} $ENV{${VARIABLE}})
+	endif ()
+endmacro()
+
+set_from_environment(Fallout4Path)
+set_from_environment(VCPKG_ROOT)
 
 if (DEFINED VCPKG_ROOT)
-	set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
+	set(CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
 	set(VCPKG_TARGET_TRIPLET "x64-windows-static-md" CACHE STRING "")
 else ()
 	message(
@@ -73,7 +74,7 @@ set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_DEBUG_RUNTIME ON)
 
-add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/extern/CommonLibF4/CommonLibF4" CommonLibF4)
+add_subdirectory(extern/CommonLibF4/CommonLibF4 CommonLibF4)
 
 find_package(fmt REQUIRED CONFIG)
 find_package(spdlog REQUIRED CONFIG)
