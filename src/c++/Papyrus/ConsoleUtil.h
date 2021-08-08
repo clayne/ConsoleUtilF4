@@ -6,15 +6,7 @@ namespace Papyrus::ConsoleUtil
 {
 	inline void ExecuteCommand(std::monostate, std::string_view a_command)
 	{
-		const auto factory = RE::ConcreteFormFactory<RE::Script>::GetFormFactory();
-		const std::unique_ptr<RE::Script> script{ factory ? factory->Create() : nullptr };
-		if (script) {
-			RE::ScriptCompiler compiler;
-			const auto owner = RE::Console::GetPickRef().get();
-			script->SetTemporary();
-			script->SetText(a_command);
-			script->CompileAndRun(&compiler, RE::COMPILER_NAME::kSystemWindow, owner.get());
-		}
+		RE::Console::ExecuteCommand(a_command.data());
 	}
 
 	inline RE::TESObjectREFR* GetSelectedReference(std::monostate)

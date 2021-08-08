@@ -1,7 +1,7 @@
 ScriptName ConsoleUtil Native
 
 ; @brief Executes the command.
-; @param a_command - The command to execute, i.e. "player.setav attackdamagemult 100".
+; @param a_command - The command to execute, i.e. "player.setav speedmult 1000".
 Function ExecuteCommand(String a_command) Global Native
 
 ; @brief Returns the console's selected reference.
